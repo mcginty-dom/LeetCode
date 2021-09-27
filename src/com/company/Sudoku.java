@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.Arrays;
+
+//'.' character indicates an empty cell
 public class Sudoku {
     private char[][] board;
 
@@ -32,25 +35,40 @@ public class Sudoku {
         return new char[9][9];
     }
 
+    /*
+        Constraints:
+            board.length == 9
+            board[i].length == 9
+            board[i][j] is a digit 1-9 or '.'.
+
+        Note:
+            A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+            Only the filled cells need to be validated according to the mentioned rules.
+    */
     public boolean isValidSudoku(char[][] board) {
-        //Every square has to contain a single number
+        //Only the numbers from 1 through to 9 can be used or a '.' to indicate an empty cell
+        //TODO: find a way to write "if any cell is not 1-9 or a '.' then return false" through streams
 
-        //Only the numbers from 1 through to 9 can be used
+        //Each 3×3 box can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
 
-        //Each 3×3 box can only contain each number from 1 to 9 once
+        //Each vertical column can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
 
-        //Each vertical column can only contain each number from 1 to 9 once
-
-        //Each horizontal row can only contain each number from 1 to 9 once
+        //Each horizontal row can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
 
         return false;
     }
 
+    /*
+        Constraints:
+            board.length == 9
+            board[i].length == 9
+            board[i][j] is a digit or '.'.
+            It is guaranteed that the input board has only one solution.
+     */
     public void solveSudoku(char[][] board) {
         //Iterate through the board until there are no longer any 'locked in' numbers
 
         //Guess and restart if invalid (make use of isValidSudoku)
-
     }
 
     public static void main(String[] args) {
