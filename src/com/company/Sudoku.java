@@ -35,6 +35,24 @@ public class Sudoku {
         return new char[9][9];
     }
 
+    public char[][] getBoard() {
+        return this.board;
+    }
+
+    public void setBoard(char[][] board) {
+        this.board = board;
+    }
+
+    //TODO:
+    public String toString() {
+        return "";
+    }
+
+    //TODO:
+    public Sudoku rotate() {
+        return new Sudoku();
+    }
+
     /*
         Constraints:
             board.length == 9
