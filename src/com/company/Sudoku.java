@@ -1,5 +1,7 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 //'.' character indicates an empty cell
@@ -46,6 +48,35 @@ public class Sudoku {
     //TODO:
     public String toString() {
         return "";
+    }
+
+    private boolean fileExists(String path) {
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void loadBoard(String path) {
+        if (fileExists(path)) {
+            //TODO:
+        } else {
+            System.out.println(path+" does not exist.");
+        }
+    }
+
+    public void saveBoard(String path) {
+        saveBoard(path,false);
+    }
+
+    public void saveBoard(String path, boolean overwrite) {
+        if ((!fileExists(path)) || (fileExists(path) && overwrite)) {
+            //TODO:
+        } else {
+            System.out.println("Confirmation needed to overwrite "+path);
+        }
     }
 
     //TODO:
