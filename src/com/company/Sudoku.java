@@ -1,8 +1,6 @@
 package com.company;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 //'.' character indicates an empty cell
 public class Sudoku {
@@ -79,11 +77,6 @@ public class Sudoku {
         }
     }
 
-    //TODO:
-    public Sudoku rotate() {
-        return new Sudoku();
-    }
-
     private boolean charExists(char c, char[] values) {
         for (char i : values) {
             if (c == i) {
@@ -142,17 +135,15 @@ public class Sudoku {
                 }
             }
         }
-        //Each vertical column can only contain each number from 1 to 9 *once*
-        for(int x=0; x<=length; x++) {
+        for(int i=0; i<=length; i++) {
 
-            if (!isValidCells(board, x, 0, length, false)) {
+            //Each vertical column can only contain each number from 1 to 9 *once*
+            if (!isValidCells(board, i, 0, length, false)) {
                 return false;
             }
-        }
-        //Each horizontal row can only contain each number from 1 to 9 *once*
-        for(int y=0; y<=length; y++) {
 
-            if (!isValidCells(board, 0, y, length, true)) {
+            //Each horizontal row can only contain each number from 1 to 9 *once*
+            if (!isValidCells(board, 0, i, length, true)) {
                 return false;
             }
         }
