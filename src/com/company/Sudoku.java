@@ -84,6 +84,44 @@ public class Sudoku {
         return new Sudoku();
     }
 
+    private boolean charExists(char c, char[] values) {
+        for (char i : values) {
+            if (c == i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidCells(char[][] board, int startX, int startY, int end, boolean isX) {
+        if (isX) {
+            return isValidCells(board, startX, startY, end, startY);
+        } else {
+            return isValidCells(board, startX, startY , startX, end);
+        }
+    }
+
+    private boolean isValidCells(char[][] board, int startX, int startY, int endX, int endY) {
+        final char[] validValues = {'.','1','2','3','4','5','6','7','8','9'};
+        char[] foundValues = new char[9];
+        int i = 0;
+        for (int x=startX; x<=endX; x++) {
+            for (int y=startY; y<=endY; y++) {
+                //if char is not valid or it has already been found
+                if ((!charExists(board[x][y],validValues)) || (charExists(board[x][y],foundValues))) {
+                    return false;
+                } else {
+                    //add char to found values so long as it is not an empty cell
+                    if (board[x][y] != '.') {
+                        foundValues[i] = board[x][y];
+                        i++;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     /*
         Constraints:
             board.length == 9
@@ -95,16 +133,30 @@ public class Sudoku {
             Only the filled cells need to be validated according to the mentioned rules.
     */
     public boolean isValidSudoku(char[][] board) {
-        //Only the numbers from 1 through to 9 can be used or a '.' to indicate an empty cell
-        //TODO: find a way to write "if any cell is not 1-9 or a '.' then return false" through streams
+        final int length = 8;
+        //Each 3×3 box can only contain each number from 1 to 9 *once*
+        for(int x=0; x<=length; x+=3) {
+            for(int y=0; y<=length; y+=3) {
+                if (!isValidCells(board, x, y, x+2, y+2)) {
+                    return false;
+                }
+            }
+        }
+        //Each vertical column can only contain each number from 1 to 9 *once*
+        for(int x=0; x<=length; x++) {
 
-        //Each 3×3 box can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
+            if (!isValidCells(board, x, 0, length, false)) {
+                return false;
+            }
+        }
+        //Each horizontal row can only contain each number from 1 to 9 *once*
+        for(int y=0; y<=length; y++) {
 
-        //Each vertical column can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
-
-        //Each horizontal row can only contain each number from 1 to 9 once TODO: 9 coordinates, create subfunction
-
-        return false;
+            if (!isValidCells(board, 0, y, length, true)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
@@ -119,9 +171,4 @@ public class Sudoku {
 
         //Guess and restart if invalid (make use of isValidSudoku)
     }
-
-    public static void main(String[] args) {
-
-    }
-
 }
