@@ -18,6 +18,8 @@ public class Main {
                                 {'.','.','.','5','.','.','.','.','.'},
                                 {'.','.','.','.','.','.','.','.','.'},
                                 {'.','.','.','.','.','.','.','.','.'}};
+        s.setBoard(boardThree);
+        System.out.println(s.toString());
         System.out.println(s.isValidSudoku(boardThree));
 
         char[][] boardFour =  {  {'.','.','.','9','.','.','.','.','.'},

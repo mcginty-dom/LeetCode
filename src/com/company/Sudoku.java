@@ -5,6 +5,8 @@ import java.io.File;
 //'.' character indicates an empty cell
 public class Sudoku {
     private char[][] board;
+    private static final int length = 8; //0..8
+    private static final char[] validValues = {'.','1','2','3','4','5','6','7','8','9'};
 
     public Sudoku() {
         this.board = createRandomBoard();
@@ -43,9 +45,15 @@ public class Sudoku {
         this.board = board;
     }
 
-    //TODO:
     public String toString() {
-        return "";
+        StringBuilder result = new StringBuilder();
+        for (int y=0; y<=length; y++) {
+            for (int x=0; x<=length; x++) {
+                result.append("|").append(board[x][y]);
+            }
+            result.append("|\n");
+        }
+        return result.toString();
     }
 
     private boolean fileExists(String path) {
@@ -95,7 +103,6 @@ public class Sudoku {
     }
 
     private boolean isValidCells(char[][] board, int startX, int startY, int endX, int endY) {
-        final char[] validValues = {'.','1','2','3','4','5','6','7','8','9'};
         char[] foundValues = new char[9];
         int i = 0;
         for (int x=startX; x<=endX; x++) {
@@ -126,7 +133,6 @@ public class Sudoku {
             Only the filled cells need to be validated according to the mentioned rules.
     */
     public boolean isValidSudoku(char[][] board) {
-        final int length = 8;
         //Each 3×3 box can only contain each number from 1 to 9 *once*
         for(int x=0; x<=length; x+=3) {
             for(int y=0; y<=length; y+=3) {
