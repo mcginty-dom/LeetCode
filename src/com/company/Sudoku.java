@@ -94,7 +94,7 @@ public class Sudoku {
         return false;
     }
 
-    private boolean isValidCells(char[][] board, int startX, int startY, int end, boolean isX) {
+    private int[] isValidCells(char[][] board, int startX, int startY, int end, boolean isX) {
         if (isX) {
             return isValidCells(board, startX, startY, end, startY);
         } else {
@@ -102,14 +102,17 @@ public class Sudoku {
         }
     }
 
-    private boolean isValidCells(char[][] board, int startX, int startY, int endX, int endY) {
+    private int[] isValidCells(char[][] board, int startX, int startY, int endX, int endY) {
         char[] foundValues = new char[9];
         int i = 0;
+        int[] coordinates = new int[2];
         for (int x=startX; x<=endX; x++) {
             for (int y=startY; y<=endY; y++) {
                 //if char is not valid or it has already been found
                 if ((!charExists(board[x][y],validValues)) || (charExists(board[x][y],foundValues))) {
-                    return false;
+                    coordinates[0] = x;
+                    coordinates[1] = y;
+                    return coordinates;
                 } else {
                     //add char to found values so long as it is not an empty cell
                     if (board[x][y] != '.') {
@@ -119,7 +122,35 @@ public class Sudoku {
                 }
             }
         }
-        return true;
+        return null;
+    }
+
+    public int[] isValid(char[][] board) {
+        int[] coordinates;
+        //Each 3×3 box can only contain each number from 1 to 9 *once*
+        for(int x=0; x<=length; x+=3) {
+            for(int y=0; y<=length; y+=3) {
+                coordinates = isValidCells(board, x, y, x+2, y+2);
+                if (coordinates != null) {
+                    return coordinates;
+                }
+            }
+        }
+        for(int i=0; i<=length; i++) {
+
+            //Each vertical column can only contain each number from 1 to 9 *once*
+            coordinates = isValidCells(board, i, 0, length, false);
+            if (coordinates != null) {
+                return coordinates;
+            }
+
+            //Each horizontal row can only contain each number from 1 to 9 *once*
+            coordinates = isValidCells(board, 0, i, length, true);
+            if (coordinates != null) {
+                return coordinates;
+            }
+        }
+        return null;
     }
 
     /*
@@ -133,27 +164,11 @@ public class Sudoku {
             Only the filled cells need to be validated according to the mentioned rules.
     */
     public boolean isValidSudoku(char[][] board) {
-        //Each 3×3 box can only contain each number from 1 to 9 *once*
-        for(int x=0; x<=length; x+=3) {
-            for(int y=0; y<=length; y+=3) {
-                if (!isValidCells(board, x, y, x+2, y+2)) {
-                    return false;
-                }
-            }
+        if (isValid(board)!=null) {
+            return false;
+        } else {
+            return true;
         }
-        for(int i=0; i<=length; i++) {
-
-            //Each vertical column can only contain each number from 1 to 9 *once*
-            if (!isValidCells(board, i, 0, length, false)) {
-                return false;
-            }
-
-            //Each horizontal row can only contain each number from 1 to 9 *once*
-            if (!isValidCells(board, 0, i, length, true)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /*
