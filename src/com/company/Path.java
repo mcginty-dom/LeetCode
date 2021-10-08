@@ -1,9 +1,12 @@
 package com.company;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Path {
     private static final int DUMMY_INT = 0;
     private static final boolean DUMMY_BOOL = false;
-    
+
     //UNIQUE PATHS
 
     //Medium - https://leetcode.com/problems/unique-paths/
@@ -63,8 +66,50 @@ public class Path {
     //VALID PATHS
 
     //Easy - https://leetcode.com/problems/path-crossing/
+    //Constraints:
+    //  1 <= path.length <= 10^4
+    //  path[i] is either 'N', 'S', 'E', or 'W'.
+    //Return:
+    //  true if you are on a location you have previously visited
+    //  false otherwise
     public boolean isPathCrossing(String path) {
-        return DUMMY_BOOL;
+        int x = 0;
+        int y = 0;
+        Set<String> locations = new HashSet<String>();
+
+        //starting point
+        locations.add("(0,0)");
+
+        //for every char
+        for (char c : path.toCharArray()) {
+
+            //translate char to vector
+            switch (c) {
+                case 'N':
+                    y++;
+                    break;
+                case 'E':
+                    x++;
+                    break;
+                case 'S':
+                    y--;
+                    break;
+                case 'W':
+                    x--;
+                    break;
+            }
+
+            //if it is a unique location, then add to locations else return paths have been crossed
+            String location = "("+x+","+y+")";
+            if (!locations.contains(location)) {
+                locations.add(location);
+            } else {
+                return true;
+            }
+        }
+
+        //if all visited locations have been unique, return false
+        return false;
     }
 
     //Easy - https://leetcode.com/problems/find-if-path-exists-in-graph/

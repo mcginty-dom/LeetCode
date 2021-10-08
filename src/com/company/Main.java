@@ -2,13 +2,13 @@ package com.company;
 
 public class Main {
     public static void main(String[] args) {
-        Sudoku s = new Sudoku();
-        /*
+/*        Sudoku s = new Sudoku();
+        *//*
         char[][] board = {{'5','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
         System.out.println(s.isValidSudoku(board));
         char[][] boardTwo = {{'8','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
         System.out.println(s.isValidSudoku(boardTwo));
-         */
+         *//*
         char[][] boardThree = { {'.','.','4','.','.','.','6','3','.'},
                                 {'.','.','.','.','.','.','.','.','.'},
                                 {'5','.','.','.','.','.','.','9','.'},
@@ -31,6 +31,13 @@ public class Main {
                                  {'.','9','.','.','.','.','.','7','.'},
                                  {'.','.','.','.','.','.','.','.','.'},
                                  {'8','.','.','8','.','.','.','.','.'}};
-        System.out.println(s.isValidSudoku(boardFour));
+        System.out.println(s.isValidSudoku(boardFour));*/
+        Path p = new Path();
+        System.out.println(p.isPathCrossing("NES"));
+        System.out.println(p.isPathCrossing("NESWW"));
+        System.out.println(p.isPathCrossing("SS"));
+        System.out.println(p.isPathCrossing("NNSWWEWSSESSWENNW"));
+        System.out.println(p.isPathCrossing("ESWN"));
+        System.out.println(p.isPathCrossing("EESWN"));
     }
 }
